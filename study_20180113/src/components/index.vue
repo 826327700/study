@@ -16,6 +16,7 @@ export default {
   name: "index",
   data() {
     return {
+      data:data,//id数据源
       id:'',
       name:''
     };
