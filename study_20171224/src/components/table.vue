@@ -2,7 +2,7 @@
   <div class="hello">
       <!--表格-->
       <el-table
-      :data="tableData"
+      :data="tableData.slice((curPage-1)*size,curPage*size)"
       style="width: 100%">
       <el-table-column
         prop="date"
@@ -30,11 +30,11 @@
           <el-pagination
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
-          :current-page="1"
+          :current-page='curPage'
           :page-sizes="[2, 5, 10, 20]"
-          :page-size="100"
+          :page-size='size'
           layout="total, sizes, prev, pager, next, jumper"
-          :total="400">
+          :total='total'>
         </el-pagination>
        </el-col>
     </el-row>
@@ -50,15 +50,21 @@ export default {
   name: "list",
   data() {
     return {
-      tableData: data
+      tableData: data,
+      size:10,
+      curPage:1,
+      total:null
     };
+  },
+  mounted(){
+    this.total = this.tableData.length;
   },
   methods: {
     handleSizeChange(val){
-
+    this.size = val;
     },
     handleCurrentChange(val){
-
+      this.curPage = val 
     },
   }
 };
